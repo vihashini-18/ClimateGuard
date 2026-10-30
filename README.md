@@ -392,11 +392,3 @@ The separation of application-level calculations from AI-generated communication
 Overall, ClimateGuard demonstrates how environmental data, structured risk analysis, and artificial intelligence can be combined to improve climate awareness and encourage better preparation for changing environmental conditions.
 
 The platform is intended to support informed decision-making and climate-risk awareness, not to replace official warnings, emergency services, or professional advice.
-
-## 13. Project Attribution
-
-ClimateGuard is based on the Prakira project, originally available at:
-
-[https://github.com/rofiperlungoding/prakira](https://github.com/rofiperlungoding/prakira?utm_source=chatgpt.com)
-
-The project has been adapted and presented under the name ClimateGuard. Appropriate attribution and compliance with the original project's licence terms should be maintained.

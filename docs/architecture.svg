@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1290 860" role="img" aria-label="Prakira architecture: data, rules, model, screen and evidence, notices" font-family="'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="15" fill="#101a13">
+  <title>How a Prakira briefing is made</title>
+  <rect width="1290" height="860" fill="#fbfbf6"/>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0l10 5-10 5z" fill="#101a13"/></marker>
+    <style>
+      .h { font-family: Outfit, 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif; font-weight: 500; letter-spacing: -0.02em; }
+      .t { font-size: 22px; }
+      .l { font-size: 14px; }
+      .p { font-size: 13px; font-weight: 600; text-anchor: middle; }
+      .n { font-size: 16px; text-anchor: middle; }
+      .m { fill: #434d46; }
+      .c { fill: #fff3d6; }
+    </style>
+  </defs>
+
+  <g transform="translate(15 10)">
+    <!-- Header: the brand mark, the title -->
+    <g transform="translate(56 36) scale(0.1875)"><path d="M68 107a60 60 0 0 1 120 0z" fill="#f4a04c"/><rect x="40" y="121" width="176" height="20" rx="10"/><rect x="68" y="155" width="120" height="20" rx="10"/><rect x="96" y="189" width="64" height="20" rx="10"/></g>
+    <text x="120" y="68" class="h" font-size="32">How a Prakira briefing is made</text>
+    <text x="120" y="96" class="m" font-size="16">Only the orange layer is a language model. Everything else is fixed code that can be unit-tested.</text>
+
+    <!-- Number tiles, as on the result list -->
+    <g fill="#fff3d6">
+      <rect x="56" y="140" width="44" height="44" rx="12"/><rect x="56" y="268" width="44" height="44" rx="12"/>
+      <rect x="56" y="552" width="44" height="44" rx="12"/><rect x="56" y="689" width="44" height="44" rx="12"/>
+    </g>
+    <rect x="56" y="413" width="44" height="44" rx="12" fill="#f4a04c"/>
+    <g class="h n">
+      <text x="78" y="168">01</text><text x="78" y="296">02</text><text x="78" y="441">03</text><text x="78" y="580">04</text><text x="78" y="717">05</text>
+    </g>
+
+    <!-- 01 Data, and the household from the form -->
+    <g fill="#fff" stroke="#e2e5da" stroke-width="1.5">
+      <rect x="116" y="124" width="248" height="76" rx="18"/><rect x="380" y="124" width="248" height="76" rx="18"/>
+      <rect x="644" y="124" width="248" height="76" rx="18"/><rect x="956" y="124" width="248" height="76" rx="18"/>
+    </g>
+    <g class="h" font-size="18">
+      <text x="136" y="156">Open-Meteo forecast</text><text x="400" y="156">CAMS air quality</text>
+      <text x="664" y="156">ERA5-based archive</text><text x="976" y="156">Household</text>
+    </g>
+    <g class="m" font-size="14.5">
+      <text x="136" y="179">heat, humidity, rain, UV</text><text x="400" y="179">US AQI and PM2.5</text>
+      <text x="664" y="179">daily highs, 1991 to 2020</text><text x="976" y="179">place, people, language</text>
+    </g>
+
+    <!-- Arrows -->
+    <g stroke="#101a13" stroke-width="1.6" stroke-linecap="round" fill="none" marker-end="url(#a)">
+      <path d="M240 201v27"/><path d="M504 201v27"/><path d="M768 201v27"/><path d="M1080 201v27"/>
+      <path d="M416 351v33"/><path d="M960 351v161"/>
+      <path d="M416 485v27"/><path d="M416 635v27"/><path d="M416 759v23"/>
+    </g>
+    <text x="430" y="372" class="m" font-size="13.5">serious facts only; none: no model call</text>
+    <text x="974" y="436" class="m" font-size="13.5">fact table</text>
+
+    <!-- 02 Rules -->
+    <rect x="116" y="230" width="1088" height="120" rx="22" fill="#fff3d6"/>
+    <text x="140" y="259" class="l m">Rules · lib/facts.mjs, lib/climate.mjs</text>
+    <text x="140" y="288" class="h t">Fixed rules set every hazard level</text>
+    <text x="140" y="312">NWS heat index and categories · EPA AQI categories · WHO UV tiers · rain classes · difference from the 30-year normal</text>
+    <text x="140" y="333">The household sets which levels count as serious. Output: a fact table with ids, values and levels.</text>
+    <rect x="1064" y="241" width="116" height="26" rx="13" fill="none" stroke="#101a13" stroke-opacity="0.3" stroke-width="1.2"/>
+    <text x="1122" y="259" class="p">deterministic</text>
+
+    <!-- 03 Model: the one accent -->
+    <rect x="116" y="386" width="600" height="98" rx="22" fill="#f4a04c"/>
+    <text x="140" y="415" class="l" fill-opacity="0.78">Language model · lib/llm.mjs</text>
+    <text x="140" y="444" class="h t">Writes one action per serious hazard</text>
+    <text x="140" y="467">And no numbers: anything else it writes is ignored.</text>
+    <rect x="588" y="397" width="104" height="26" rx="13"/>
+    <text x="640" y="415" class="p c">not trusted</text>
+
+    <!-- 04 Screen and evidence -->
+    <rect x="116" y="514" width="1088" height="120" rx="22"/>
+    <text x="140" y="543" class="l c" fill-opacity="0.72">Screen and evidence · lib/verify.mjs, lib/vocab.mjs</text>
+    <text x="140" y="572" class="h t c">Every action is screened before you see it</text>
+    <text x="140" y="596" class="c" fill-opacity="0.9">Removed: over-warning, any number, any word outside the reviewed list. Each removal is listed with its reason.</text>
+    <text x="140" y="617" class="c" fill-opacity="0.9">Code builds each evidence sentence from the fact table.</text>
+    <rect x="1064" y="525" width="116" height="26" rx="13" fill="none" stroke="#fff3d6" stroke-opacity="0.45" stroke-width="1.2"/>
+    <text x="1122" y="543" class="p c">deterministic</text>
+
+    <!-- 05 Notices -->
+    <rect x="116" y="664" width="1088" height="94" rx="22" fill="#fff" stroke="#e2e5da" stroke-width="1.5"/>
+    <text x="140" y="693" class="l m">Notices · lib/notice.mjs</text>
+    <text x="140" y="721" class="h t">Fixed text fills any gap</text>
+    <text x="140" y="743">A serious hazard without a kept action gets a standard notice, so nothing serious is missing.</text>
+    <rect x="1064" y="675" width="116" height="26" rx="13" fill="none" stroke="#101a13" stroke-opacity="0.3" stroke-width="1.2"/>
+    <text x="1122" y="693" class="p">deterministic</text>
+
+    <!-- Result -->
+    <rect x="116" y="784" width="652" height="36" rx="18"/>
+    <text x="138" y="807" class="c" font-size="14.5">Result: numbered points with their numbers · standard notices · the list of removed actions</text>
+  </g>
+</svg>

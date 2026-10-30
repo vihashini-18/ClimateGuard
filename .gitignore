@@ -1,0 +1,5 @@
+.env
+node_modules
+eval/out
+*.local.md
+data

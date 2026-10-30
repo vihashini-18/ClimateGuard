@@ -1,547 +1,402 @@
-# ClimateGuard
-### AI-powered, household-specific climate risk briefings
+# ClimateGuard – Climate Risk Awareness and Personalised Safety Platform
 
-<p align="center">
-  <img src="docs/screenshots/banner.png" alt="ClimateGuard banner" width="100%">
-</p>
+## 1. Project Overview
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Climate_Tech-Sustainability-2e7d32?style=for-the-badge" alt="Climate technology">
-  <img src="https://img.shields.io/badge/AI-Mistral-6b5bd2?style=for-the-badge" alt="Mistral AI">
-  <img src="https://img.shields.io/badge/Node.js-20%2B-43853d?style=for-the-badge" alt="Node.js">
-  <img src="https://img.shields.io/badge/License-See_repository-64748b?style=for-the-badge" alt="License">
-</p>
+ClimateGuard is a climate-risk awareness platform designed to help people understand changing weather conditions and their possible effects on daily life. The platform provides personalised climate briefings for the next 72 hours by analysing important environmental factors such as temperature, rainfall, air quality, and ultraviolet (UV) exposure.
 
-**ClimateGuard** transforms weather forecasts and environmental data into practical, household-specific climate risk briefings. It helps people understand upcoming heat, rainfall, air quality, and UV risks, and provides actionable guidance based on household circumstances.
+Weather information is often presented as raw numerical data, making it difficult for ordinary users to understand the actual risks and decide what precautions they should take. ClimateGuard addresses this problem by converting environmental data into understandable risk levels and practical recommendations.
 
-Rather than simply displaying weather numbers, ClimateGuard explains what those conditions could mean for people and what precautions they can consider taking.
+Instead of simply displaying weather forecasts, the platform focuses on explaining what the predicted conditions could mean for people and their households. It combines weather information, environmental indicators, household-specific considerations, rule-based calculations, and AI-generated recommendations to provide a more meaningful understanding of potential climate risks.
 
----
+The main objective is to make climate-related information accessible, understandable, and actionable so that users can make better-informed decisions in their daily lives.
 
-## Table of Contents
+## 2. Problem Statement
 
-- [Overview](#overview)
-- [Problem Statement](#problem-statement)
-- [Our Solution](#our-solution)
-- [Key Features](#key-features)
-- [How ClimateGuard Works](#how-climateguard-works)
-- [System Architecture](#system-architecture)
-- [Technology Stack](#technology-stack)
-- [Environmental Data Sources](#environmental-data-sources)
-- [Evaluation and Testing](#evaluation-and-testing)
-- [Screenshots](#screenshots)
-- [Project Structure](#project-structure)
-- [Installation and Setup](#installation-and-setup)
-- [Environment Variables](#environment-variables)
-- [Limitations and Responsible Use](#limitations-and-responsible-use)
-- [Project Background and Attribution](#project-background-and-attribution)
+Climate change and unpredictable weather conditions are increasing the importance of understanding environmental risks. People regularly experience extreme temperatures, heavy rainfall, poor air quality, and high UV exposure. However, conventional weather applications primarily focus on displaying forecast information rather than explaining its possible consequences.
 
----
+For example, a weather application may display a high temperature, but users may not understand the associated heat risk or the precautions they should consider. Similarly, an air-quality reading may be available, but users may not know how the pollution level could affect their outdoor activities.
 
-## Overview
+The main problems addressed by ClimateGuard include:
 
-Climate change and increasingly unpredictable weather conditions create challenges for households, particularly those with children, older adults, and people who may be more vulnerable to environmental hazards.
+1. Difficulty understanding raw weather and environmental data.
+2. Limited awareness of the potential effects of heat, rainfall, air pollution, and UV exposure.
+3. Lack of practical recommendations connected to specific environmental conditions.
+4. Insufficient consideration of household-specific risks.
+5. Difficulty combining information from multiple environmental data sources.
+6. Limited availability of simple, understandable climate-risk briefings covering multiple environmental factors.
 
-Traditional weather applications primarily communicate forecasts through temperatures, rainfall probabilities, and air quality measurements. However, these figures do not always explain their practical implications for a particular household.
+ClimateGuard aims to address these challenges by transforming environmental information into personalised and easy-to-understand risk briefings.
 
-ClimateGuard bridges this gap by combining:
+## 3. Proposed Solution
 
-- Weather forecasting data.
-- Air quality information.
-- Ultraviolet radiation measurements.
-- Household vulnerability information.
-- Rule-based environmental risk assessment.
-- AI-generated natural-language recommendations.
+ClimateGuard provides an integrated platform that collects environmental information, analyses potential hazards, and generates recommendations based on the identified conditions.
 
-The platform converts these inputs into a concise briefing covering the next 72 hours.
+The platform focuses on the upcoming 72 hours and considers four major environmental risk categories:
 
-## Problem Statement
+- Heat exposure
+- Rainfall conditions
+- Air quality
+- Ultraviolet radiation
 
-Weather information is widely available, but interpreting its consequences can be difficult.
+The collected information is processed using predefined calculations and risk-assessment logic. The platform then identifies the relevant hazard levels and uses AI to generate understandable recommendations.
 
-For example:
+The system is designed to ensure that numerical calculations and hazard classifications are handled through application logic rather than relying entirely on AI-generated responses.
 
-- A high heat index may create additional risks for older adults.
-- Heavy rainfall may disrupt outdoor activities and travel.
-- Poor air quality may require additional precautions for sensitive individuals.
-- High UV exposure may increase the need for sun protection.
+AI is primarily used to communicate the identified risks in natural language and suggest practical actions. Generated recommendations are screened before being presented to users.
 
-Most general-purpose weather applications provide environmental measurements without sufficiently connecting them to individual household circumstances.
+This approach combines structured environmental analysis with AI-assisted communication to make climate-risk information more useful.
 
-Furthermore, AI-generated recommendations can sometimes contain inaccurate figures or unsupported claims if numerical information is generated directly by a language model.
+## 4. Key Features
 
-ClimateGuard addresses these challenges through a combination of deterministic calculations, environmental thresholds, and carefully screened AI-generated advice.
+### 4.1. 72-Hour Climate Briefing
 
-## Our Solution
+ClimateGuard provides climate and environmental risk information for the upcoming 72 hours.
 
-ClimateGuard creates personalized climate briefings by analysing environmental conditions alongside household characteristics.
+Instead of focusing only on the current weather, the platform considers upcoming conditions to help users prepare in advance.
 
-The system follows an important design principle:
+The briefing covers:
 
-**Code determines the numbers and risk levels. AI is responsible only for generating the practical action wording.**
+- Expected heat conditions.
+- Predicted rainfall.
+- Air-quality conditions.
+- UV exposure levels.
+- Relevant environmental hazards.
+- Practical recommendations based on the identified conditions.
 
-This separation helps prevent language models from inventing temperatures, air quality values, hazard levels, or other numerical evidence.
+This allows users to understand potential changes in environmental conditions and take precautions before risks become significant.
 
-Each briefing presents:
+### 4.2. Heat Risk Analysis
 
-1. Important environmental risks.
-2. Household-specific risk classifications.
-3. Practical recommendations.
-4. Supporting forecast measurements.
-5. The reasoning and evidence behind the recommendations.
+High temperatures can affect daily activities, outdoor work, and general comfort.
 
-The platform also provides an audit trail so users can understand how the briefing was generated.
+ClimateGuard analyses temperature-related conditions and identifies potential heat risks using a heat-index calculation based on the NWS Rothfusz approach.
 
----
+The platform uses the calculated information to determine relevant heat conditions and communicate possible precautions.
 
-## Key Features
+The objective is to make temperature information more meaningful by explaining its potential impact rather than displaying temperature values alone.
 
-### 1. Multi-hazard climate monitoring
+### 4.3. Rainfall Risk Analysis
 
-ClimateGuard monitors four important environmental hazards.
+Rainfall conditions can influence transportation, outdoor activities, and everyday planning.
 
-| Hazard | Information analysed |
-|---|---|
-| Heat | Hourly temperature and humidity-derived heat index |
-| Rain | Daily rainfall totals and precipitation probability |
-| Air Quality | Maximum hourly US Air Quality Index |
-| UV Radiation | Daily maximum UV index |
+ClimateGuard analyses rainfall information to identify relevant rainfall categories and communicate potential concerns.
 
-### 2. Household-specific risk assessment
+The platform uses rainfall classifications to explain expected conditions and provide general recommendations.
 
-Users can provide household information to adjust the risk assessment.
+These classifications are intended for climate-risk awareness. They should not be interpreted as official flood predictions or warnings.
 
-The system considers circumstances such as:
+### 4.4. Air Quality Monitoring
 
-- Older adults.
-- Young children.
-- People with relevant health vulnerabilities.
-- Household cooling conditions.
+Air pollution is an important environmental factor that can affect outdoor activities and general well-being.
 
-The selected household characteristics influence which environmental thresholds are treated as serious.
+ClimateGuard incorporates air-quality information from available environmental data sources and uses EPA AQI categories to communicate air-quality conditions.
 
-### 3. AI-generated recommendations
+The system helps users understand whether the available air-quality information indicates relatively good or concerning conditions.
 
-ClimateGuard uses the Mistral language model to generate short, understandable recommendations.
+Based on the identified category, the platform can provide relevant general precautions.
 
-The AI is instructed to generate action-oriented advice rather than numerical measurements.
+### 4.5. UV Exposure Analysis
 
-Its output is screened before being presented to the user.
+Ultraviolet radiation is another important environmental risk factor.
 
-### 4. Transparent risk calculations
+ClimateGuard analyses UV information and classifies exposure levels using WHO UV categories.
 
-Hazard levels are determined through fixed rules rather than AI-generated classifications.
+The platform communicates the identified UV conditions and provides relevant precautions to help users understand potential exposure risks.
 
-The platform displays supporting environmental measurements and the associated risk categories.
+This feature makes UV information part of the overall climate briefing instead of treating it as an unrelated weather measurement.
 
-### 5. 72-hour climate briefing
+### 4.6. Household-Specific Risk Considerations
 
-Users receive an overview of upcoming environmental conditions across the next three days.
+ClimateGuard is designed to consider household-specific risk information when presenting climate-related recommendations.
 
-The briefing prioritizes important actions instead of overwhelming users with raw forecast information.
+The objective is to make the information more relevant to the people using the platform rather than providing identical generic recommendations to everyone.
 
-### 6. AI output screening
+Household-related information can influence how environmental conditions are communicated and which precautions are highlighted.
 
-AI-generated recommendations are treated as untrusted input.
+This feature supports the platform's goal of providing more contextualised climate-risk awareness.
 
-The screening process checks whether recommendations:
+### 4.7. AI-Powered Recommendations
 
-- Correspond to a serious hazard.
-- Contain prohibited numerical values.
-- Use appropriate language for the hazard.
-- Avoid unjustified warnings.
-- Follow the reviewed vocabulary rules.
+ClimateGuard uses the Mistral `open-mistral-nemo` model to generate natural-language recommendations based on the environmental conditions identified by the application.
 
-### 7. Audit trail and process transparency
+The AI component focuses on communicating risks and suggesting practical actions.
 
-The platform records the steps involved in generating a briefing.
+Importantly, AI does not independently determine the application's numerical measurements or hazard classifications. These are calculated using the platform's predefined logic.
 
-Users can inspect the processing sequence, supporting evidence, and information about recommendations that were removed.
+This separation helps maintain consistency between the environmental analysis and the recommendations presented to users.
 
-### 8. Multiple language support
+### 4.8. Recommendation Screening and Safety Checks
 
-The original implementation supports:
+AI-generated recommendations may sometimes contain inaccurate, unsupported, or unsuitable information. ClimateGuard includes screening mechanisms to evaluate generated content before displaying it.
 
-- English.
-- Bahasa Indonesia.
+The screening process checks for issues such as:
 
-### 9. Climate baseline comparison
+- Unsupported numerical information.
+- Unjustified instructions to remain indoors.
+- Recommendations that do not appropriately address the identified hazards.
+- Empty or excessively long responses.
+- Inappropriate or disallowed vocabulary.
+- Recommendations that fail to meet the platform's expected safety conditions.
 
-Forecast temperatures can be compared with historical climate averages for the corresponding period.
+The system also uses fixed safety notices when a serious hazard is identified but an acceptable AI-generated recommendation is not retained.
 
-The baseline uses the 1991–2020 reference period.
+This provides an additional layer of protection and helps prevent the application from depending entirely on unrestricted AI-generated content.
 
-### 10. Forecast model comparison
+### 4.9. Multilingual Support
 
-The platform compares ECMWF's IFS physics-based forecast model with its AIFS machine-learning forecast model.
+ClimateGuard supports two languages:
 
-Significant differences are presented as an indication of lower confidence rather than automatically selecting one model as correct.
+- English
+- Bahasa Indonesia
 
-### 11. Additional capabilities
+This feature helps make climate-risk information accessible to users who prefer different languages.
 
-- Location-based weather information.
-- Household preference storage in the browser.
-- WhatsApp sharing.
-- Copy briefing as text.
-- Hourly heat and UV peak identification.
-- Long-range climate outlook.
-- Standard notices for serious hazards without an accepted AI recommendation.
+The multilingual approach is intended to improve the accessibility and usability of environmental information.
 
----
+## 5. Technology Stack and Data Sources
 
-## How ClimateGuard Works
+ClimateGuard combines environmental data services, AI capabilities, and application-level risk calculations.
 
-The application follows a structured processing pipeline.
+### Environmental Data Sources
 
-### Step 1: Environmental data collection
+Open-Meteo
 
-The system retrieves weather, air quality, and historical climate information through Open-Meteo.
+Open-Meteo provides weather and forecast information used by the platform to analyse upcoming environmental conditions.
 
-The collected information includes:
+ECMWF IFS and AIFS
 
-- Temperature.
-- Relative humidity.
-- Precipitation.
-- Rain probability.
-- Air quality measurements.
-- UV index.
-- Historical climate averages.
+The platform incorporates information associated with ECMWF's Integrated Forecasting System (IFS) and Artificial Intelligence Forecasting System (AIFS).
 
-### Step 2: Rule-based risk calculation
+These forecasting sources contribute to the environmental information used in the climate briefing.
 
-The application calculates environmental measurements and determines hazard levels using predefined thresholds.
+CAMS
 
-Examples include:
+The Copernicus Atmosphere Monitoring Service (CAMS) provides atmospheric and air-quality-related information used by the platform.
 
-- Heat index calculation using the NWS Rothfusz equation.
-- Air quality classification using EPA categories.
-- UV classification based on WHO guidance.
-- Rainfall classification using the implemented rainfall thresholds.
+ERA5-Based Archive
 
-### Step 3: Household vulnerability assessment
+ERA5-based historical environmental information supports the platform's use of climate-related reference data.
 
-The system evaluates the environmental conditions in relation to the household information supplied by the user.
+NASA POWER
 
-Household characteristics can change which risk levels are considered serious.
+NASA POWER is included as a fallback data source when the primary data sources are unavailable or unsuitable.
 
-### Step 4: AI recommendation generation
+### AI Technology
 
-The Mistral model receives the relevant hazard information and generates concise recommendations.
+ClimateGuard uses the Mistral `open-mistral-nemo` model for generating natural-language recommendations.
 
-The model is not responsible for calculating hazard levels or writing numerical evidence.
+The model receives relevant information from the application's environmental analysis and produces recommendations intended to help users understand potential risks.
 
-### Step 5: Recommendation screening
+The generated output is subsequently screened by the application.
 
-The generated recommendations pass through a screening process.
+### Risk Calculation and Classification
 
-Recommendations that fail the configured checks are removed.
+The platform uses established approaches and reference categories for interpreting environmental conditions.
 
-### Step 6: Evidence generation
+These include:
 
-The application attaches forecast values, rule-based classifications, and supporting evidence to accepted recommendations.
+- NWS Rothfusz approach for heat-index calculations.
+- EPA AQI categories for air-quality interpretation.
+- WHO UV categories for ultraviolet exposure.
+- Project-defined rainfall classifications.
 
-Numerical statements are constructed by application code using the retrieved environmental data.
+This combination allows the application to process different environmental indicators through a structured approach.
 
-### Step 7: Final briefing
+## 6. System Workflow
 
-The user receives a structured briefing containing the most relevant precautions and the information supporting each recommendation.
+The overall ClimateGuard workflow can be understood through the following stages.
 
----
+Stage 1: Environmental Data Collection
 
-## System Architecture
+The platform retrieves relevant weather and environmental information from its integrated data sources.
 
-<p align="center">
-  <img src="docs/screenshots/architecture.png" alt="ClimateGuard system architecture" width="90%">
-</p>
+The collected information includes temperature, rainfall, air quality, and UV-related measurements.
 
-The architecture separates environmental data processing, deterministic calculations, AI recommendation generation, and output verification.
+Stage 2: Data Processing
 
-| Layer | Responsibility |
-|---|---|
-| Data Layer | Retrieves weather, air quality, and climate data |
-| Calculation Layer | Calculates environmental measurements and hazard levels |
-| Household Layer | Applies household-specific risk adjustments |
-| AI Layer | Generates natural-language recommendations |
-| Verification Layer | Screens and validates AI-generated actions |
-| Evidence Layer | Attaches numerical evidence and supporting information |
-| Presentation Layer | Displays the final climate briefing |
+The collected information is processed and organised so that it can be used for environmental analysis.
 
-### Core processing modules
+This stage prepares the available data for the platform's risk calculations.
 
-- `lib/facts.mjs` – Environmental data processing and hazard calculations.
-- `lib/climate.mjs` – Historical climate comparisons.
-- `lib/llm.mjs` – AI recommendation generation.
-- `lib/intake.mjs` – Household description processing.
-- `lib/verify.mjs` – Recommendation screening and evidence generation.
-- `lib/notice.mjs` – Standardized hazard notices.
-- `lib/trace.mjs` – Processing trace and execution timing.
-- `lib/models.mjs` – Forecast model comparison.
-- `lib/outlook.mjs` – Long-range climate outlook.
-- `lib/power.mjs` – NASA POWER data integration.
-- `lib/vocab.mjs` – Reviewed recommendation vocabulary.
+Stage 3: Hazard Calculation
 
----
+The application uses predefined logic and relevant classification approaches to calculate environmental conditions and identify potential hazards.
 
-## Technology Stack
+The numerical calculations and hazard levels are determined by the application rather than being invented by the AI model.
 
-| Technology | Purpose |
-|---|---|
-| Node.js | Application runtime and server |
-| JavaScript | Application logic |
-| HTML | User interface structure |
-| CSS | Interface styling |
-| Vanilla JavaScript | Frontend interactions |
-| Mistral AI API | Natural-language recommendations |
-| Open-Meteo API | Weather and air quality data |
-| ECMWF IFS | Physics-based forecast data |
-| ECMWF AIFS | Machine-learning forecast comparison |
-| CAMS | Atmospheric composition and air quality data |
-| NASA POWER | Alternative historical climate data |
+Stage 4: Household Risk Consideration
 
----
+The platform considers available household-specific information to make the resulting risk briefing more relevant.
 
-## Environmental Data Sources
+Stage 5: AI Recommendation Generation
 
-ClimateGuard uses publicly available environmental information and established classification references.
+The processed environmental information and identified hazards are used to generate natural-language recommendations through the Mistral model.
 
-| Category | Reference |
-|---|---|
-| Heat index | National Weather Service |
-| Air quality | United States Environmental Protection Agency |
-| UV index | World Health Organization |
-| Weather forecasts | Open-Meteo |
-| Atmospheric composition | Copernicus Atmosphere Monitoring Service |
-| Historical climate baseline | ERA5-based Open-Meteo archive |
-| Alternative climate data | NASA POWER |
+Stage 6: Recommendation Screening
 
-Reference documentation:
+The generated recommendations are evaluated using predefined screening conditions.
 
-- [National Weather Service – Heat Index](https://www.weather.gov/ama/heatindex)
-- [EPA – Air Quality Index](https://www.airnow.gov/aqi/aqi-basics/)
-- [WHO – UV Index](https://www.who.int/news-room/questions-and-answers/item/radiation-the-ultraviolet-(uv)-index)
-- [Open-Meteo Documentation](https://open-meteo.com/en/docs)
-- [NASA POWER](https://power.larc.nasa.gov/)
+Responses that fail the platform's checks are not retained as acceptable recommendations.
 
-**Important:** The rainfall thresholds in the underlying implementation are not fully verified against a primary official source. They should not be interpreted as an official flood-warning classification.
+Stage 7: Safety Notice Generation
 
----
+When a serious hazard exists but no acceptable AI recommendation is retained, the system displays a fixed safety notice.
 
-## Evaluation and Testing
+Stage 8: Final Climate Briefing
 
-The original project evaluation examined the screening of AI-generated recommendations across English and Indonesian test cases.
+The platform presents the environmental conditions, identified risks, and available recommendations in an understandable format.
 
-The following figures are from the evaluation described in the source project documentation, not a new independent evaluation of ClimateGuard.
+The final result is intended to help users understand upcoming climate conditions and prepare accordingly.
 
-| Metric | English – Tuned | English – Held-out | Indonesian – Tuned | Indonesian – Held-out |
-|---|---:|---:|---:|---:|
-| AI actions accepted by screening | 76.7% | 85.2% | 90.7% | 81.5% |
-| Serious hazards covered by accepted AI action | 76.3% | 84.2% | 89.8% | 84.2% |
-| Serious hazards covered after notices | 100% | 100% | 100% | 100% |
-| AI-generated numbers displayed | 0 | 0 | 0 | 0 |
+## 7. Reference Frameworks and Standards
 
-### Understanding the results
+ClimateGuard draws conceptual and technical inspiration from established climate, disaster-risk, and environmental reference materials.
 
-- An accepted recommendation has passed the implemented screening rules; this does not establish that the advice is clinically or scientifically optimal.
-- Standard notices cover serious hazards for which an AI recommendation is not accepted.
-- The zero-number result follows from the system's design: application code, not the AI, supplies numerical evidence.
-- The evaluation used relatively small samples and should not be treated as a large-scale validation.
-- The advice has not undergone independent clinical review.
+WMO-No. 1150
 
-The original project documentation reports 43 offline unit tests. Run the test command to verify the current repository's results.
+The platform draws conceptual inspiration from the World Meteorological Organization's guidance related to climate services and climate information.
 
----
+UN Sendai Framework
 
-## Screenshots
+The United Nations Sendai Framework for Disaster Risk Reduction provides conceptual inspiration for the platform's focus on risk awareness and preparedness.
 
-### Main landing page
+WMO-No. 1203
 
-<p align="center">
-  <img src="docs/screenshots/hero.png" alt="ClimateGuard landing page" width="100%">
-</p>
+The platform refers to the 1991–2020 climatological standard normal baseline associated with WMO-No. 1203.
 
-### Climate briefing results
+NWS Heat Index
 
-<p align="center">
-  <img src="docs/screenshots/result.png" alt="Climate briefing results" width="100%">
-</p>
+The NWS Rothfusz approach is used as the reference for heat-index calculations.
 
-### Environmental data overview
+EPA Air Quality Index
 
-<p align="center">
-  <img src="docs/screenshots/data.png" alt="Environmental data and forecast information" width="100%">
-</p>
+EPA AQI categories provide a reference for communicating air-quality conditions.
 
-### Hazard classification
+WHO UV Categories
 
-<p align="center">
-  <img src="docs/screenshots/hazards.png" alt="Heat, rainfall, air quality and UV hazard information" width="100%">
-</p>
+WHO UV categories are used as a reference for classifying ultraviolet exposure.
 
-### Recommendation audit trail
+These references help establish a structured foundation for environmental interpretation. Their inclusion does not mean that ClimateGuard is officially certified or endorsed by the organisations responsible for them.
 
-<p align="center">
-  <img src="docs/screenshots/audit.png" alt="Recommendation audit trail" width="100%">
-</p>
+## 8. Evaluation and Testing
 
-### Additional interface views
+ClimateGuard includes an evaluation of its AI-generated recommendations and safety-screening process.
 
-<p align="center">
-  <img src="docs/screenshots/stats.png" alt="Evaluation statistics" width="100%">
-</p>
+The reported evaluation covers runs conducted between 19 and 22 October 2026.
 
----
+The evaluation considers four categories:
 
-## Project Structure
+- English tuned data.
+- English held-out data.
+- Bahasa Indonesia tuned data.
+- Bahasa Indonesia held-out data.
 
-```text
-ClimateGuard/
-│
-├── public/
-│   ├── index.html
-│   └── about.html
-│
-├── lib/
-│   ├── facts.mjs
-│   ├── climate.mjs
-│   ├── llm.mjs
-│   ├── intake.mjs
-│   ├── verify.mjs
-│   ├── notice.mjs
-│   ├── trace.mjs
-│   ├── outlook.mjs
-│   ├── power.mjs
-│   ├── vocab.mjs
-│   ├── models.mjs
-│   ├── store.mjs
-│   ├── readability.mjs
-│   └── *.test.mjs
-│
-├── eval/
-│   └── run.mjs
-│
-├── docs/
-│   ├── screenshots/
-│   ├── architecture/
-│   └── project documentation
-│
-├── scripts/
-│   └── ui-check.cjs
-│
-├── server.mjs
-├── package.json
-├── .gitignore
-└── README.md
-```
+### Reported Evaluation Results
 
-*The structure above describes the documented application modules. Check the actual repository for any files that differ.*
+| Evaluation category | AI actions kept | Serious hazards covered by kept AI actions |
+| ------------------- | --------------- | ------------------------------------------ |
+| English tuned       | 76.7%           | 76.3%                                      |
+| English held-out    | 85.2%           | 84.2%                                      |
+| Indonesian tuned    | 90.7%           | 89.8%                                      |
+| Indonesian held-out | 81.5%           | 84.2%                                      |
 
----
+The evaluation also reports that serious hazards are covered after fixed safety notices are included. The reported 100% coverage after notices is achieved by the system's construction.
 
-## Installation and Setup
+The evaluation reports zero AI-generated numerical values displayed, as numerical information is handled through the application's calculation logic.
 
-### Prerequisites
+These results provide an indication of how the recommendation-generation and screening mechanisms performed during the reported tests.
 
-Install the following:
+However, the evaluation has limitations. The sample sizes are small, and the acceptance of a recommendation by the screening system does not necessarily prove that the recommendation is accurate, useful, or clinically validated.
 
-- Node.js 20 or newer.
-- Git.
-- A Mistral API key.
+Therefore, the reported percentages should be interpreted as project evaluation results rather than proof of real-world safety or effectiveness.
 
-### 1. Clone the repository
+## 9. Advantages of ClimateGuard
 
-```bash
-git clone https://github.com/vihashini-18/ClimateGuard.git
-cd ClimateGuard
-```
+1\. Multi-factor environmental analysis: Combines heat, rainfall, air quality, and UV information in one platform.
 
-### 2. Configure the API key
+2\. Future-oriented awareness: Provides briefings for the next 72 hours, helping users prepare for upcoming conditions.
 
-Create a `.env` file in the project root:
+3\. Personalised risk considerations: Incorporates household-specific information to make risk communication more relevant.
 
-```env
-MISTRAL_API_KEY=your_mistral_api_key
-```
+4\. AI-assisted recommendations: Converts technical environmental information into understandable natural-language guidance.
 
-Obtain an API key from:
+5\. Structured calculations: Uses application-level logic for numerical calculations and hazard classifications.
 
-https://console.mistral.ai/
+6\. Recommendation screening: Evaluates AI-generated content before presenting it to users.
 
-Never publish your actual API key or commit it to GitHub.
+7\. Fallback safety notices: Provides fixed notices when serious hazards do not have an acceptable AI-generated recommendation.
 
-### 3. Start the application
+8\. Multilingual accessibility: Supports English and Bahasa Indonesia.
 
-```bash
-npm start
-```
+9\. Multiple data sources: Incorporates information from different weather and environmental services.
 
-Open the application in your browser:
+10\. Risk-awareness focus: Emphasises understanding and preparedness rather than simply displaying weather measurements.
 
-```text
-http://localhost:3000
-```
+## 10. Limitations
 
-### 4. Run the tests
+ClimateGuard is designed as a climate-risk awareness and decision-support platform. It has certain limitations that should be considered.
 
-```bash
-npm test
-```
+- AI-generated recommendations are screened but have not been clinically validated.
+- Environmental data availability depends on the integrated external services.
+- Free data services may have usage restrictions, rate limits, or availability limitations.
+- Household risk thresholds and some classifications are specific to the project.
+- Rainfall classifications should not be interpreted as official flood forecasts.
+- The platform does not replace official weather alerts, emergency instructions, or professional medical advice.
+- The reported evaluation uses relatively small samples and does not establish real-world effectiveness.
+- Screening acceptance does not guarantee that every recommendation is appropriate for every individual or situation.
 
-### 5. Run the evaluation
+Users should follow official warnings and instructions issued by relevant authorities during serious weather and environmental events.
 
-```bash
-npm run eval -- 15 en heldout
-```
+## 11. Future Scope
 
-The evaluation command accepts the following arguments:
+ClimateGuard can be extended in several ways to improve its functionality and practical usefulness.
 
-```text
-[count] [en|id] [tuned|heldout]
-```
+Improved Environmental Data Integration
 
----
+Additional environmental data sources and more comprehensive forecasting information could improve the coverage and reliability of the platform.
 
-## Environment Variables
+Advanced Personalisation
 
-| Variable | Description | Default |
-|---|---|---|
-| `MISTRAL_API_KEY` | API key for Mistral AI | Required |
-| `MISTRAL_MODEL` | Language model identifier | `open-mistral-nemo` |
-| `PORT` | Server port | `3000` |
-| `HOST` | Server host | `127.0.0.1` |
+The platform could incorporate more household context and user-defined preferences to make climate-risk recommendations more relevant.
 
----
+Expanded Language Support
 
-## Limitations and Responsible Use
+Additional regional and international languages could improve accessibility for a wider range of users.
 
-ClimateGuard is designed as an informational climate-risk companion.
+Enhanced Risk Analysis
 
-It is not an official meteorological warning service, a replacement for national weather agencies, or a medical advice platform.
+Future versions could improve the interpretation of combined environmental hazards and provide more detailed explanations of how different conditions interact.
 
-Important limitations include:
+Improved Recommendation Evaluation
 
-1. **Forecast uncertainty:** Environmental information comes from forecast models and may differ from actual local conditions.
-2. **AI recommendations:** Screening reduces certain unwanted outputs but does not guarantee that every recommendation is optimal.
-3. **Household thresholds:** Household adjustments are project-specific interpretations, not official medical thresholds.
-4. **Rainfall classification:** Implemented rainfall categories should not be treated as official flood predictions.
-5. **Air quality resolution:** CAMS data has different spatial resolutions across regions.
-6. **Climate comparisons:** Forecast and historical datasets may use different models and grids.
-7. **Model availability:** External APIs and free-tier services may be rate-limited or temporarily unavailable.
+Larger datasets, additional test scenarios, and expert reviews could help assess the quality and reliability of generated recommendations.
 
-Users should follow official local warnings and consult qualified professionals when necessary.
+Improved Safety Mechanisms
 
----
+The screening process could be expanded and evaluated against a broader range of potentially unsafe or misleading recommendations.
 
-## Project Background and Attribution
+Additional Environmental Indicators
 
-ClimateGuard is based on the Prakira project and its existing implementation. The repository's Git history has been reset, but that does not change the project's original development history or authorship.
+Further environmental factors could be incorporated to provide a more comprehensive climate-awareness experience.
 
-Original project: [Prakira](https://github.com/rofiperlungoding/prakira)
+These are possible future improvements and should not be understood as features already implemented in the current version.
 
-Please retain applicable original author attribution, copyright notices, and licence requirements. Check the original repository's licence before redistributing or modifying the software.
+## 12. Conclusion
 
----
+ClimateGuard aims to make climate and environmental information more understandable and useful for everyday decision-making. By combining weather forecasts, air-quality information, UV exposure data, household-specific considerations, and AI-assisted recommendations, the platform provides a structured approach to climate-risk awareness.
 
-<p align="center">
-  <strong>ClimateGuard</strong><br>
-  Turning environmental data into understandable, actionable climate awareness.
-</p>
+Its primary strength is the integration of multiple environmental indicators into a single 72-hour briefing. Rather than presenting only raw numerical information, ClimateGuard attempts to explain the potential risks and provide practical recommendations.
+
+The separation of application-level calculations from AI-generated communication is an important part of its design. Environmental measurements and hazard classifications are determined through predefined logic, while AI is used to communicate the results in natural language. Recommendation screening and fixed safety notices provide additional safeguards.
+
+Overall, ClimateGuard demonstrates how environmental data, structured risk analysis, and artificial intelligence can be combined to improve climate awareness and encourage better preparation for changing environmental conditions.
+
+The platform is intended to support informed decision-making and climate-risk awareness, not to replace official warnings, emergency services, or professional advice.
+
+## 13. Project Attribution
+
+ClimateGuard is based on the Prakira project, originally available at:
+
+[https://github.com/rofiperlungoding/prakira](https://github.com/rofiperlungoding/prakira?utm_source=chatgpt.com)
+
+The project has been adapted and presented under the name ClimateGuard. Appropriate attribution and compliance with the original project's licence terms should be maintained.
